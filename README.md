@@ -4,14 +4,14 @@
 ## Ссылки на проект
 
 ### Backend
-http://diplom-nazarov.students.nomoreparties.co/
-http://www.diplom-nazarov.students.nomoreparties.co/
-https://diplom-nazarov.students.nomoreparties.co/
-https://www.diplom-nazarov.students.nomoreparties.co/
+http://diplom-nazarov.students.nomoreparties.co/  
+http://www.diplom-nazarov.students.nomoreparties.co/  
+https://diplom-nazarov.students.nomoreparties.co/  
+https://www.diplom-nazarov.students.nomoreparties.co/  
 
 ### IP
-http://130.193.43.169
-https://130.193.43.169
+http://130.193.43.169  
+https://130.193.43.169  
 
 ## Инструкции
 1. Клонировать репозиторий.
