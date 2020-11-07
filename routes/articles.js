@@ -8,7 +8,7 @@ router.get('/articles', getArticles);
 
 router.post('/articles', celebrate({
   body: Joi.object().keys({
-    keywords: Joi.string().required(),
+    keyword: Joi.string().required(),
     title: Joi.string().required(),
     text: Joi.string().required(),
     date: Joi.string().required(),
@@ -18,11 +18,12 @@ router.post('/articles', celebrate({
   }),
 }), createArticle);
 
-router.delete('/articles/articleId', celebrate({
-  body: Joi.object().keys({
-    id: Joi.string().hex(),
+router.delete('/articles/:articleId',
+  celebrate({
+    params: Joi.object().keys({
+      articleId: Joi.string().hex(),
+    }),
   }),
-}),
-deleteArticle);
+  deleteArticle);
 
 module.exports = router;

@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(limiter);
 app.use(requestLogger);
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
+mongoose.connect('mongodb://localhost:27017/diplomdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -62,6 +62,9 @@ app.use(errors());
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
 
+  if (err.name === 'DocumentNotFoundError') {
+    return res.status(404).send({ message: 'Нет такой статьи' });
+  }
   if (err.name === 'ValidationError') {
     return res.status(400).send('Ошибка валидации поля');
   }
@@ -71,7 +74,7 @@ app.use((err, req, res, next) => {
   if (err.name === 'MongoError' && err.code === 11000) {
     return res.status(409).send({ message: 'Такая почта уже зарегистрирована' });
   }
-  return res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибк' : message });
+  return res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
 });
 
 app.listen(PORT, () => {

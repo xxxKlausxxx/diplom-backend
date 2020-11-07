@@ -6,7 +6,7 @@ const RequestError = require('../errors/req_err');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getUser = (req, res, next) => {
-  User.find({})
+  User.find({ _id: req.user._id })
     .then((user) => res.send({ data: user }))
     .catch(next);
 };
