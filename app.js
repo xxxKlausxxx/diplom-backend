@@ -49,6 +49,9 @@ app.post('/signup',
     }),
   }),
   createUser);
+app.get('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
 
 app.use(auth);
 
@@ -78,7 +81,9 @@ app.use((err, req, res, next) => {
   }
   return res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
 });
-
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`App listening on port ${PORT}`);
