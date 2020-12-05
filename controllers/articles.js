@@ -2,13 +2,9 @@ const Article = require('../models/article');
 const ForbiddenError = require('../errors/forbidden_err');
 
 const getArticles = (req, res, next) => {
-  Article.find({}).select('owner').exec(function(err, article) {
-    if (article.owner === req.user._id) {
-      return true
-    } else {
-      return false
-    }
-  })
+const userOwner = req.user._id;
+Article.find({ owner: userOwner })
+
     .then((article) => res.send({ data: article }))
     .catch(next);
 };
@@ -25,17 +21,17 @@ const createArticle = (req, res, next) => {
 };
 
 const deleteArticle = (req, res, next) => {
-  const articleOwner = req.user._id;
   Article.findById(req.params.articleId)
+    .select('+owner')
     .orFail()
     .then((article) => {
       const owner = article.owner._id.toString();
 
-      if (articleOwner !== owner) {
+      if (req.user._id !== owner) {
         throw new ForbiddenError('Нельзя удалить чужую статью');
       } else {
         Article.deleteOne(article)
-          .then(() => res.send({ data: article }))
+          .then(() => res.send({ data: 'Статья удалена' }))
           .catch(next);
       }
     })
