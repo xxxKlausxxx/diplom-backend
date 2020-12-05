@@ -11,6 +11,7 @@ const auth = require('./middlewares/auth');
 const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const RequestError = require('./errors/req_err');
+const cors = require('cors')
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -20,6 +21,7 @@ const limiter = rateLimit({
 });
 app.use(cookieParser());
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(limiter);

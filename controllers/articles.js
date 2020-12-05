@@ -2,7 +2,13 @@ const Article = require('../models/article');
 const ForbiddenError = require('../errors/forbidden_err');
 
 const getArticles = (req, res, next) => {
-  Article.find({})
+  Article.find({}).select('owner').exec(function(err, article) {
+    if (article.owner === req.user._id) {
+      return true
+    } else {
+      return false
+    }
+  })
     .then((article) => res.send({ data: article }))
     .catch(next);
 };
