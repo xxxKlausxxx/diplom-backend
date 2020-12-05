@@ -32,6 +32,10 @@ mongoose.connect('mongodb://localhost:27017/diplomdb', {
   useFindAndModify: false,
 });
 mongoose.set('runValidators', true);
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -39,7 +43,7 @@ app.post('/signin', celebrate({
     password: Joi.string().min(6).pattern(/\S+/),
   }),
 }), login);
-app.post('/signup', cors(), celebrate ({
+app.post('/signup', cors(corsOptions), celebrate ({
     body: Joi.object().keys({
       name: Joi.string().required().min(2).max(30),
       email: Joi.string().required().pattern(/^([\w-]\.?)+@([\w-]+\.)+[\w-]+/),
