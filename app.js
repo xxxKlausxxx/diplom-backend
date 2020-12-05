@@ -38,7 +38,7 @@ const corsOptions = {
   optionsSuccessStatus: 200
 }
 
-app.post('/signup', cors())
+app.use(cors())
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -46,7 +46,7 @@ app.post('/signin', celebrate({
     password: Joi.string().min(6).pattern(/\S+/),
   }),
 }), login);
-app.post('/signup', cors(corsOptions), celebrate ({
+app.post('/signup', celebrate ({
     body: Joi.object().keys({
       name: Joi.string().required().min(2).max(30),
       email: Joi.string().required().pattern(/^([\w-]\.?)+@([\w-]+\.)+[\w-]+/),
