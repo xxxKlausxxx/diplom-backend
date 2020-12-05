@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const bodyParser = require('body-parser');
@@ -11,7 +12,7 @@ const auth = require('./middlewares/auth');
 const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const RequestError = require('./errors/req_err');
-const cors = require('cors')
+
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -34,8 +35,10 @@ mongoose.connect('mongodb://localhost:27017/diplomdb', {
 mongoose.set('runValidators', true);
 const corsOptions = {
   origin: 'http://localhost:8080',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200
 }
+
+app.post('/signup', cors())
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
