@@ -21,7 +21,6 @@ const limiter = rateLimit({
 });
 app.use(cookieParser());
 
-app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(limiter);
@@ -40,10 +39,7 @@ app.post('/signin', celebrate({
     password: Joi.string().min(6).pattern(/\S+/),
   }),
 }), login);
-app.post('/signup',
-function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for all origins!'})},
-  celebrate({
+app.post('/signup', cors(), celebrate ({
     body: Joi.object().keys({
       name: Joi.string().required().min(2).max(30),
       email: Joi.string().required().pattern(/^([\w-]\.?)+@([\w-]+\.)+[\w-]+/),
@@ -51,9 +47,6 @@ function (req, res, next) {
     }),
   }),
   createUser);
-app.get('/products/:id', function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for all origins!'})
-})
 
 app.use(auth);
 
