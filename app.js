@@ -20,6 +20,7 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
 });
+app.use(cors())
 app.use(cookieParser());
 
 app.use(bodyParser.json());
@@ -38,7 +39,6 @@ const corsOptions = {
   optionsSuccessStatus: 200
 }
 
-app.use(cors())
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
