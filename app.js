@@ -20,13 +20,14 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
 });
-app.use(cors({
-  credentials: true,
-  origin: 'http://localhost:8080',
-  allowedHeaders: 'Content-Type, Coockie'
-}));
+// app.use(cors({
+//   credentials: true,
+//   origin: 'http://localhost:8080',
+//   allowedHeaders: 'Content-Type, Coockie'
+// }));
 app.use(cookieParser());
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(limiter);
