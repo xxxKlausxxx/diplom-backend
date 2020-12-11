@@ -44,7 +44,7 @@ const login = (req, res, next) => {
         httpOnly: true,
         sameSite: true,
       })
-        .status(200).send('Успешно');
+      res.send({ token });
     })
     .catch(next);
 };
