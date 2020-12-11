@@ -23,7 +23,7 @@ const limiter = rateLimit({
 app.use(cors({
   credentials: true,
   origin: 'http://localhost:8080',
-  allowHeaders: 'Content-Type, Coockie'
+  allowedHeaders: 'Content-Type, Coockie'
 }));
 app.use(cookieParser());
 
